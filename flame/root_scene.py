@@ -17,7 +17,7 @@ class RootScene(cocos.scene.Scene):
         self.game, self.path = game, path
 
         # load first level
-        self.loadLevel(game["levels"][0])
+        self.loadLevel(game["levels"][1])
 
     def loadLevel(self, level):
         resources = cocos.tiles.load(os.path.join(self.path, level["file"]))
