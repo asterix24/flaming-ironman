@@ -9,6 +9,7 @@ class RootLayer(cocos.layer.Layer):
 
     def on_key_press(self, key, modifiers):
         print key
+        # Space key code.
         if key == 32:
             RootScene.instance.change_level(1)
 
