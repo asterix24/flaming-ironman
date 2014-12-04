@@ -35,7 +35,7 @@ così dovrebbe funzionare..
 per provare se va tutto:
 
 ```
-$ python flamming-iroman.py 
+$ python flaming-iroman.py 
 ```
 
 enjoy!
