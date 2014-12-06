@@ -1,0 +1,4 @@
+---
+moves:
+    - name: stop
+      file: CartmanSPG.png
