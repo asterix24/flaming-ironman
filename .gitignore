@@ -53,5 +53,8 @@ docs/_build/
 # PyBuilder
 target/
 
+# Vim files
+*.sw*
+
 venv/
 .DS_Store
