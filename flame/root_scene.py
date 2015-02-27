@@ -13,14 +13,13 @@ class GameLayer(cocos.layer.Layer):
     is_event_handler = True
     def __init__(self):
         super(GameLayer, self).__init__()
-        uno = cocos.sprite.Sprite('assets/CartmanSPG.png')
-        uno.position = 300,300
-        uno.scale = 0.5
-        self.add(uno)
+        self.sprite = cocos.sprite.Sprite('assets/CartmanSPG.png')
+        self.sprite.position = 300,300
+        self.sprite.scale = 0.5
+        self.add(self.sprite)
 
     def on_key_press(self, key, modifiers):
         print key
-        # Space key code.
 
 
 import random
@@ -28,6 +27,33 @@ class BackgroundLayer(cocos.layer.Layer):
     def __init__(self):
         super(BackgroundLayer, self ).__init__()
         self.img = pyglet.resource.image('assets/foresta.png')
+
+        sheet = pyglet.image.load('assets/flame.png')
+        sequence = pyglet.image.ImageGrid(sheet, 3, 3)
+        flame = pyglet.image.Animation.from_image_sequence([
+            sequence[0], sequence[5], sequence[8],
+            sequence[1], sequence[2], sequence[4],
+            sequence[3], sequence[7], sequence[6],
+            ], 0.15)
+
+        self.flame = cocos.sprite.Sprite(flame)
+        self.flame.position = 600,600
+        self.add(self.flame)
+
+        sheet = pyglet.image.load('assets/flame2.png')
+        sequence = pyglet.image.ImageGrid(sheet, 4, 4)
+        flame2 = pyglet.image.Animation.from_image_sequence([
+            sequence[0], sequence[5], sequence[8], sequence[9],
+            sequence[1], sequence[2], sequence[4], sequence[11],
+            sequence[3], sequence[14], sequence[6], sequence[10],
+            sequence[15], sequence[7], sequence[13], sequence[12],
+            ], 0.15)
+
+
+        self.flame2 = cocos.sprite.Sprite(flame2)
+        self.flame2.position = 200,600
+        self.add(self.flame2)
+        
 
         for i in range(3):
             bat = cocos.sprite.Sprite('assets/bat.png')
@@ -52,8 +78,6 @@ class BackgroundLayer(cocos.layer.Layer):
         self.transform()
         self.img.blit(0,0)
         glPopMatrix()
-
-
 
 class AnimationLayer(cocos.layer.Layer):
     def __init__(self):
