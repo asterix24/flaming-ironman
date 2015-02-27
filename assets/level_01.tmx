@@ -3,18 +3,9 @@
  <tileset firstgid="1" name="tileset_00" tilewidth="32" tileheight="32">
   <image source="tileset_00.png" width="192" height="192"/>
  </tileset>
- <tileset firstgid="37" name="tora_vx_01" tilewidth="32" tileheight="32">
-  <image source="tileset_01.png" width="512" height="512"/>
- </tileset>
- <tileset firstgid="293" name="rtp-addons" tilewidth="32" tileheight="32">
-  <image source="tileset_03.png" width="512" height="512"/>
- </tileset>
- <tileset firstgid="549" name="tora_vx_02" tilewidth="32" tileheight="32">
-  <image source="tileset_02.png" width="512" height="512"/>
- </tileset>
  <layer name="tiles_1" width="32" height="24">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFo4A6oJ5xYO03YMRO0ws4MGKnR+0fHPa7MqFiEFAFqlFjRNCEAAsQs6GJzcVhL4yG5YtQJlQMAqZAOTNGBL0WiNfhwOuBWByoRwQPZsWB2aBuRxdzBZrpxoig8QGQNMh+biQsAaVh4kJALADEgmgYm7gQifbzAjEHEPNDzRKHmgECYvi14gSk2I9ujwwO8ZFmvzADIj0NhP3yQKzAgEgL9LAflOdl8Kqknf0gZch5mN72szNA8qECA3lhjgy8gXb6MCJoQgBUBvAxQMqAUUA5AACfOSAE
+   eJztld0KgCAMRu2PLPuxoOgi3/81m2AQQ0wxEWIfHGRDPDdjMkahUO4UQJXR3wId+bP6Sw9SzcgITC9wYE7k98me0a1zkv83/hpoPmYL8PeAQByWng18T5lziPSHOHFPIb/+z1w7SwJLJALV6+N9vU+5IdVed80j+d3+C1VZBnA=
   </data>
  </layer>
 </map>
