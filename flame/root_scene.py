@@ -16,6 +16,9 @@ class GameLayer(cocos.layer.Layer):
     is_event_handler = True
     def __init__(self):
         super(GameLayer, self).__init__()
+
+        self.w, self.h = director.get_window_size()
+
         self.sprite = cocos.sprite.Sprite('assets/CartmanSPG.png')
         self.sprite.position = 311.0, 610.0
         self.sprite.scale = 0.5
@@ -23,6 +26,15 @@ class GameLayer(cocos.layer.Layer):
 
     def on_key_press(self, key, modifiers):
         print key
+        STEP=10
+        x,y = self.sprite.position
+        if key == pyglet.window.key.LEFT:
+            print "qui", self.sprite.position
+            self.sprite.position = x - STEP if (x - STEP) > 0 else x, y
+        if key == pyglet.window.key.RIGHT:
+            print "qua", self.sprite.position
+            self.sprite.position = x + STEP if (x + STEP) < self.w else x, y
+
 
     def on_mouse_press(self, x, y, buttons, modifiers):
        print director.get_virtual_coordinates(x,y)
