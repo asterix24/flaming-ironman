@@ -3,6 +3,8 @@
 
 import os
 import cocos
+from cocos.layer import *
+from cocos.text import *
 from cocos.actions import *
 from cocos.director import director
 import main_character
@@ -73,11 +75,41 @@ class BackgroundLayer(cocos.layer.Layer):
 
             bat.do(Repeat(uno + s_uno + ss_uno + due + tre + s_tre + ss_tre + quattro + cinque))
 
-    def draw( self ):
+    def draw(self):
         glPushMatrix()
         self.transform()
         self.img.blit(0,0)
         glPopMatrix()
+
+class ScoreLayer(cocos.layer.Layer): 
+    def __init__(self):
+        w,h = director.get_window_size()
+        super(ScoreLayer, self).__init__()
+
+        # transparent layer
+        self.add(ColorLayer(32,32,32,32, width=w, height=48),z=-1 )
+        self.position = (0, h-48)
+        self.score=Label('Score:', font_size=36,
+                font_name='Edit Undo Line BRK',
+                color=(255,255,255,255),
+                anchor_x='left',
+                anchor_y='bottom')
+        self.score.position=(0,0)
+        self.add(self.score)
+
+        self.lvl=  Label('Lvl:', font_size=36,
+                font_name='Edit Undo Line BRK',
+                color=(255,255,255,255),
+                anchor_x='left',
+                anchor_y='bottom')
+
+        self.lvl.position=(450,0)
+        self.add(self.lvl)
+
+    def draw(self):
+        super(ScoreLayer, self).draw()
+        self.score.element.text = 'Score: 000'
+        self.lvl.element.text = 'Level: 000'
 
 class AnimationLayer(cocos.layer.Layer):
     def __init__(self):
@@ -99,4 +131,5 @@ class RootScene(cocos.scene.Scene):
         self.add(BackgroundLayer())
         self.add(self.tilemap)
         self.add(GameLayer())
+        self.add(ScoreLayer())
 
