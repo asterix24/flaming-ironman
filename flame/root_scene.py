@@ -57,23 +57,26 @@ class BackgroundLayer(cocos.layer.Layer):
         
 
         #Bats flying
+        w,h = director.get_window_size()
         for i in range(3):
             bat = cocos.sprite.Sprite('assets/bat.png')
             bat.position = 10 + i * 10, 100
             bat.scale = 0.5
             self.add(bat, z=1)
 
-            uno = MoveBy((random.randint(0,1000), random.randint(0,700)),2)
-            s_uno = ScaleBy(2,1)
-            ss_uno = Reverse(s_uno)
-            due = MoveTo((random.randint(0,1000), random.randint(0,700)),2)
-            tre  = MoveTo((random.randint(0,1000), random.randint(0,700)),2)
-            s_tre = ScaleBy(2,1)
-            ss_tre  = Reverse(s_tre)
-            quattro  = MoveTo((random.randint(0,1000), random.randint(0,700)),2)
-            cinque = MoveTo((random.randint(0,1000), random.randint(0,700)),2)
+            actions =   MoveBy((random.randint(0, w), random.randint(0, h)), 2)
+            sl =  ScaleBy(2,1)
+            actions += sl
+            actions +=  Reverse(sl)
+            actions +=  MoveTo((random.randint(0,w), random.randint(0,h)),2)
+            actions +=  MoveTo((random.randint(0,w), random.randint(0,h)),2)
+            sl =  ScaleBy(2,1)
+            actions += sl
+            actions +=  Reverse(sl)
+            actions +=  MoveTo((random.randint(0,w), random.randint(0,h)),2)
+            actions +=  MoveTo((random.randint(0,w), random.randint(0,h)),2)
 
-            bat.do(Repeat(uno + s_uno + ss_uno + due + tre + s_tre + ss_tre + quattro + cinque))
+            bat.do(Repeat(actions))
 
     def draw(self):
         glPushMatrix()
@@ -110,14 +113,6 @@ class ScoreLayer(cocos.layer.Layer):
         super(ScoreLayer, self).draw()
         self.score.element.text = 'Score: 000'
         self.lvl.element.text = 'Level: 000'
-
-class AnimationLayer(cocos.layer.Layer):
-    def __init__(self):
-        super(AnimationLayer, self).__init__()
-
-        resources = cocos.tiles.load('assets/level_00.tmx')
-        self.tilemap = resources["tiles_1"]
-        self.tilemap.set_view(0, 0, 1024, 768)
 
 
 class RootScene(cocos.scene.Scene):
