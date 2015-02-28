@@ -6,6 +6,8 @@ import cocos
 from cocos.layer import *
 from cocos.text import *
 from cocos.actions import *
+import cocos.collision_model as cm
+import cocos.euclid as eu
 from cocos.director import director
 import main_character
 import pyglet
@@ -16,25 +18,38 @@ class GameLayer(cocos.layer.Layer):
     is_event_handler = True
     def __init__(self):
         super(GameLayer, self).__init__()
-
         self.w, self.h = director.get_window_size()
 
-        self.sprite = cocos.sprite.Sprite('assets/CartmanSPG.png')
-        self.sprite.position = 311.0, 610.0
-        self.sprite.scale = 0.5
-        self.add(self.sprite)
+        self.actor = main_character.MainCharacter('assets/CartmanSPG.png', 311, 610)
+        self.add(self.actor)
+
+        self.actor2 = main_character.MainCharacter('assets/CartmanSPG.png', 411, 610)
+        self.add(self.actor2)
+
+        self.actors = [ self.actor, self.actor2 ]
+        self.collman = cm.CollisionManagerGrid(0.0, self.w, 0.0, self.h, 50, 50)
+
+        for i in self.actors:
+            self.collman.add(i)
+
+        self.schedule(self.update)
+
+    def update(self, dt):
+        self.actor.update_position()
+        self.collman.clear()
+        for i in self.actors:
+            self.collman.add(i)
+
+        for other in self.collman.iter_colliding(self.actor):
+            print "touch"
+            
 
     def on_key_press(self, key, modifiers):
         print key
-        STEP=10
-        x,y = self.sprite.position
         if key == pyglet.window.key.LEFT:
-            print "qui", self.sprite.position
-            self.sprite.position = x - STEP if (x - STEP) > 0 else x, y
+            self.actor.move_forward()
         if key == pyglet.window.key.RIGHT:
-            print "qua", self.sprite.position
-            self.sprite.position = x + STEP if (x + STEP) < self.w else x, y
-
+            self.actor.move_backward()
 
     def on_mouse_press(self, x, y, buttons, modifiers):
        print director.get_virtual_coordinates(x,y)
@@ -46,7 +61,6 @@ class BackgroundLayer(cocos.layer.Layer):
         self.img = pyglet.resource.image('assets/foresta.png')
         seq  = [6, 0, 3, 1, 4, 0, 8, 5, 2]
         seq2 = [0, 2, 7, 1, 5, 6, 3, 0, 8]
-
 
         sheet = pyglet.image.load('assets/flame.png')
         sequence = pyglet.image.ImageGrid(sheet, 3, 3)
