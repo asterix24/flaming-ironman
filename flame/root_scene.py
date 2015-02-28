@@ -4,6 +4,7 @@
 import os
 import cocos
 from cocos.actions import *
+from cocos.director import director
 import main_character
 import pyglet
 from pyglet.gl import *
@@ -14,13 +15,15 @@ class GameLayer(cocos.layer.Layer):
     def __init__(self):
         super(GameLayer, self).__init__()
         self.sprite = cocos.sprite.Sprite('assets/CartmanSPG.png')
-        self.sprite.position = 300,300
+        self.sprite.position = 311.0, 610.0
         self.sprite.scale = 0.5
         self.add(self.sprite)
 
     def on_key_press(self, key, modifiers):
         print key
 
+    def on_mouse_press(self, x, y, buttons, modifiers):
+       print director.get_virtual_coordinates(x,y)
 
 import random
 class BackgroundLayer(cocos.layer.Layer):
@@ -34,27 +37,20 @@ class BackgroundLayer(cocos.layer.Layer):
             sequence[0], sequence[5], sequence[8],
             sequence[1], sequence[2], sequence[4],
             sequence[3], sequence[7], sequence[6],
-            ], 0.15)
+            ], 0.2)
 
         self.flame = cocos.sprite.Sprite(flame)
-        self.flame.position = 600,600
+        self.flame.position = 720.0, 560.0
+        self.flame.scale = 0.6
         self.add(self.flame)
 
-        sheet = pyglet.image.load('assets/flame2.png')
-        sequence = pyglet.image.ImageGrid(sheet, 4, 4)
-        flame2 = pyglet.image.Animation.from_image_sequence([
-            sequence[0], sequence[5], sequence[8], sequence[9],
-            sequence[1], sequence[2], sequence[4], sequence[11],
-            sequence[3], sequence[14], sequence[6], sequence[10],
-            sequence[15], sequence[7], sequence[13], sequence[12],
-            ], 0.15)
-
-
-        self.flame2 = cocos.sprite.Sprite(flame2)
-        self.flame2.position = 200,600
+        self.flame2 = cocos.sprite.Sprite(flame)
+        self.flame2.position = 820.0, 560.0
+        self.flame2.scale = 0.6
         self.add(self.flame2)
         
 
+        #Bats flying
         for i in range(3):
             bat = cocos.sprite.Sprite('assets/bat.png')
             bat.position = 10 + i * 10, 100
