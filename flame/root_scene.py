@@ -30,21 +30,25 @@ class BackgroundLayer(cocos.layer.Layer):
     def __init__(self):
         super(BackgroundLayer, self ).__init__()
         self.img = pyglet.resource.image('assets/foresta.png')
+        seq  = [6, 0, 3, 1, 4, 0, 8, 5, 2]
+        seq2 = [0, 2, 7, 1, 5, 6, 3, 0, 8]
+
 
         sheet = pyglet.image.load('assets/flame.png')
         sequence = pyglet.image.ImageGrid(sheet, 3, 3)
-        flame = pyglet.image.Animation.from_image_sequence([
-            sequence[0], sequence[5], sequence[8],
-            sequence[1], sequence[2], sequence[4],
-            sequence[3], sequence[7], sequence[6],
-            ], 0.2)
+        flame = pyglet.image.Animation.from_image_sequence(
+                [sequence[seq[i]] for i in range(3*3)],
+                0.2)
 
         self.flame = cocos.sprite.Sprite(flame)
         self.flame.position = 720.0, 560.0
         self.flame.scale = 0.6
         self.add(self.flame)
 
-        self.flame2 = cocos.sprite.Sprite(flame)
+        flame2 = pyglet.image.Animation.from_image_sequence(
+                [sequence[seq2[i]] for i in range(3*3)],
+                0.2)
+        self.flame2 = cocos.sprite.Sprite(flame2)
         self.flame2.position = 820.0, 560.0
         self.flame2.scale = 0.6
         self.add(self.flame2)
