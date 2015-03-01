@@ -58,7 +58,7 @@ import random
 class BackgroundLayer(cocos.layer.Layer):
     def __init__(self):
         super(BackgroundLayer, self ).__init__()
-        self.img = pyglet.resource.image('assets/foresta.png')
+        self.img = pyglet.resource.image('assets/foresta2.png')
         seq  = [6, 0, 3, 1, 4, 0, 8, 5, 2]
         seq2 = [0, 2, 7, 1, 5, 6, 3, 0, 8]
 
