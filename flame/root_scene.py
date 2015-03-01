@@ -23,16 +23,16 @@ class GameLayer(cocos.layer.Layer):
         self.actor = main_character.MainCharacter('assets/CartmanSPG.png', 311, 610)
         self.add(self.actor)
 
-        self.actor2 = main_character.MainCharacter('assets/CartmanSPG.png', 411, 610)
-        self.add(self.actor2)
+        self.enemy = main_character.Enemy('assets/ghost.png', 411, 630, scale=0.3)
+        self.add(self.enemy)
 
-        self.actors = [ self.actor, self.actor2 ]
+        self.actors = [ self.actor, self.enemy ]
         self.collman = cm.CollisionManagerGrid(0.0, self.w, 0.0, self.h, 50, 50)
 
         for i in self.actors:
             self.collman.add(i)
 
-        self.sfx = pyglet.resource.media('assets/scream.wav')
+        self.sfx = pyglet.resource.media('assets/scream.wav', streaming=False)
         self.sfx.volume = 10
 
         self.touch = False
@@ -45,23 +45,16 @@ class GameLayer(cocos.layer.Layer):
             self.collman.add(i)
 
         #for other in self.collman.iter_colliding(self.actor):
-        #   print "touch"
+        #    print "touch"
 
-        if self.collman.they_collide(self.actor, self.actor2):
+        if self.collman.they_collide(self.actor, self.enemy):
             if not self.touch:
                 print "touch"
-                s = ScaleBy(2,1)
-                animation = s
-                animation += Reverse(s)
-                self.sfx.play()
-
-                self.actor2.do(animation)
+                self.enemy.animate()
                 self.touch = True
         else:
             self.touch = False
-
-
-
+            self.enemy.standby()
 
     def on_key_press(self, key, modifiers):
         print key
