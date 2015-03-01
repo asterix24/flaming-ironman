@@ -32,6 +32,10 @@ class GameLayer(cocos.layer.Layer):
         for i in self.actors:
             self.collman.add(i)
 
+        self.sfx = pyglet.resource.media('assets/scream.wav')
+        self.sfx.volume = 10
+
+        self.touch = False
         self.schedule(self.update)
 
     def update(self, dt):
@@ -40,9 +44,24 @@ class GameLayer(cocos.layer.Layer):
         for i in self.actors:
             self.collman.add(i)
 
-        for other in self.collman.iter_colliding(self.actor):
-            print "touch"
-            
+        #for other in self.collman.iter_colliding(self.actor):
+        #   print "touch"
+
+        if self.collman.they_collide(self.actor, self.actor2):
+            if not self.touch:
+                print "touch"
+                s = ScaleBy(2,1)
+                animation = s
+                animation += Reverse(s)
+                self.sfx.play()
+
+                self.actor2.do(animation)
+                self.touch = True
+        else:
+            self.touch = False
+
+
+
 
     def on_key_press(self, key, modifiers):
         print key
@@ -80,7 +99,7 @@ class BackgroundLayer(cocos.layer.Layer):
         self.flame2.position = 820.0, 560.0
         self.flame2.scale = 0.6
         self.add(self.flame2)
-        
+
 
         #Bats flying
         w,h = director.get_window_size()
@@ -110,7 +129,7 @@ class BackgroundLayer(cocos.layer.Layer):
         self.img.blit(0,0)
         glPopMatrix()
 
-class ScoreLayer(cocos.layer.Layer): 
+class ScoreLayer(cocos.layer.Layer):
     def __init__(self):
         w,h = director.get_window_size()
         super(ScoreLayer, self).__init__()
